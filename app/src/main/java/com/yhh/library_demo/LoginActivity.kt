@@ -1,5 +1,6 @@
 package com.yhh.library_demo
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.hardware.biometrics.BiometricPrompt
 import android.os.Build
@@ -9,6 +10,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import com.yhh.library_demo.data.User
 import java.util.concurrent.Executor
@@ -70,5 +72,20 @@ class LoginActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         helper.close()
+    }
+
+    override fun onBackPressed() {
+        val msgBuilder = AlertDialog.Builder(this@LoginActivity)
+                .setTitle("앱 종료")
+                .setMessage("앱을 종료하시겠습니까?")
+                .setPositiveButton("예", DialogInterface.OnClickListener { dialogInterface, i ->
+                    finishAffinity()
+                })
+                .setNegativeButton("아니오", DialogInterface.OnClickListener { dialogInterface, i ->
+                    return@OnClickListener
+                })
+
+        val msgDlg = msgBuilder.create()
+        msgDlg.show()
     }
 }
