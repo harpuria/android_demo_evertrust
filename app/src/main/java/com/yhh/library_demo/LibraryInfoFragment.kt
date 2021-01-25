@@ -59,7 +59,8 @@ class LibraryInfoFragment : Fragment(), TextWatcher {
                 var dataList = mutableListOf<Map<String, String>>()
                 for(d in data.seoulPublicLibraryInfo.row){
                     var dataMap = mutableMapOf<String, String>()
-                    dataMap.put("name", d.lBRRYNAME)
+                    dataMap.put("name",
+                            d.lBRRYNAME)
                     dataMap.put("addr", d.aDRES)
                     dataMap.put("time", d.oPTIME)
                     dataMap.put("homepage", d.hMPGURL)

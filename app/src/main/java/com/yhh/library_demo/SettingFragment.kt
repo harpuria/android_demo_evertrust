@@ -53,21 +53,21 @@ class SettingFragment : Fragment() {
         }
 
         settingsDeleteUserBtn.setOnClickListener {
-            showDialog()
+            showDialog("계정 삭제", "계정을 삭제하시겠습니까?", "계정 삭제가 완료되었습니다")
         }
 
         logoutBtn.setOnClickListener {
             Singleton.curUser.userNo = 0
             Singleton.curUser.id = ""
             Singleton.curUser.password = ""
-            val intent = Intent(mContext, LoginActivity::class.java)
-            mContext.startActivity(intent)
+
+            showDialog("로그아웃", "로그아웃 하시겠습니까?", "로그아웃 완료")
         }
 
         return view
     }
 
-    fun initView(view:View){
+    fun initView(view:View) {
         settingProfileImage = view.findViewById(R.id.settingProfileImage)
         settingIdLabel = view.findViewById(R.id.settingIdLabel)
         settingPasswordEdit = view.findViewById(R.id.settingPasswordEdit)
@@ -81,13 +81,13 @@ class SettingFragment : Fragment() {
         helper.close()
     }
 
-    fun showDialog(){
+    fun showDialog(title:String, message:String, toastMessage:String){
         val msgBuilder = AlertDialog.Builder(mContext)
-                .setTitle("계정 삭제")
-                .setMessage("계정을 삭제하시겠습니까?")
+                .setTitle(title)
+                .setMessage(message)
                 .setPositiveButton("예", DialogInterface.OnClickListener { dialog, which ->
                     helper.deleteUser(Singleton.curUser)
-                    Toast.makeText(mContext, "계정 삭제가 완료되었습니다", Toast.LENGTH_LONG).show()
+                    Toast.makeText(mContext, toastMessage, Toast.LENGTH_LONG).show()
                     val intent = Intent(mContext, LoginActivity::class.java)
                     mContext.startActivity(intent)
                 })
