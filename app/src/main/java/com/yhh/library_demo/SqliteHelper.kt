@@ -74,6 +74,9 @@ class SqliteHelper(context:Context)
         val password = cursor.getString(cursor.getColumnIndex("PASSWORD"))
         val filepath = cursor.getString(cursor.getColumnIndex("FILE_PATH"))
 
+        cursor.close()
+        rd.close()
+
         return User(userNo, id, password, filepath)
     }
 
